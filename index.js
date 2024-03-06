@@ -9,7 +9,8 @@ import lib from "./lib.js";
  */
 
 const SKILL_NAME = "Quick Maths";
-const HELP_MESSAGE = "You can say do some quick maths, or, you can say exit... What can I help you with?";
+const HELP_MESSAGE =
+  "You can say do some quick maths, or, you can say exit... What can I help you with?";
 const HELP_REPROMPT = "What can I help you with?";
 const FALLBACK_REPROMPT = HELP_REPROMPT;
 const FALLBACK_MESSAGE = [
@@ -29,20 +30,25 @@ const STOP_MESSAGE = lib.wrapSpeechconsInSSML("The ting goes ta ta!");
  * @param {string} type
  * @returns {CanHandle}
  */
-const matchRequestType = (type) => (handlerInput) => getRequestType(handlerInput.requestEnvelope) === type;
+const matchRequestType = (type) => (handlerInput) =>
+  getRequestType(handlerInput.requestEnvelope) === type;
 
 /**
  * @param {string[]} names
  * @returns {CanHandle}
  */
-const matchIntent = (...names) => ({ requestEnvelope }) =>
-  getRequestType(requestEnvelope) === "IntentRequest" && names.includes(getIntentName(requestEnvelope));
+const matchIntent =
+  (...names) =>
+  ({ requestEnvelope }) =>
+    getRequestType(requestEnvelope) === "IntentRequest" &&
+    names.includes(getIntentName(requestEnvelope));
 
 /**
  * @param {number} min
  * @param {number} max
  */
-const randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const randomNumber = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
 
 /**
  * @param {CanHandle} canHandle
@@ -74,7 +80,9 @@ const GetQuickMathsHandler = {
   ),
   handle(handlerInput) {
     const [x, y] = Array.from({ length: 2 }, () => randomNumber(1, 1000));
-    const [[operationName, operation]] = Object.entries(lib.getRandomItem(operations));
+    const [[operationName, operation]] = Object.entries(
+      lib.getRandomItem(operations),
+    );
 
     const approx = operationName === "divided by" ? "approximately " : "";
     const text = `${x} ${operationName} ${y} is ${approx}${operation(x, y)}`;
@@ -114,7 +122,8 @@ const FallbackHandler = {
 /** @type {RequestHandler} */
 const ExitHandler = {
   canHandle: matchIntent("AMAZON.CancelIntent", "AMAZON.StopIntent"),
-  handle: (handlerInput) => handlerInput.responseBuilder.speak(STOP_MESSAGE).getResponse(),
+  handle: (handlerInput) =>
+    handlerInput.responseBuilder.speak(STOP_MESSAGE).getResponse(),
 };
 
 /** @type {RequestHandler} */

@@ -1,5 +1,5 @@
 {
-  "name": "quick-maths-skill",
+  "name": "quick-maths-lambda",
   "version": "1.0.0",
   "private": true,
   "license": " AGPL-3.0-or-later",
@@ -9,10 +9,10 @@
     "ask-sdk-core": "^2.12.1",
     "ask-sdk-model": "^1.38.2"
   },
+  "devDependencies": {
+    "@biomejs/biome": "^1.5.3"
+  },
   "engines": {
     "node": ">=20"
-  },
-  "devDependencies": {
-    "dprint": "^0.45.0"
   }
 }
